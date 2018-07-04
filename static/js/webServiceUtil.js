@@ -12,7 +12,7 @@ var localUrl = "192.168.50.15";    //跳转地址http:
 // var elearningWebserviceURL = isDebug ? elearningWebserviceURLOfLocal : elearningWebserviceURLOfRemote;
 
 //小蚂蚁webService地址
-const apiWebServiceURLOfLocals = "http://" + localDomain + ":8890/Excoord_EasyArRecServer/webservice";
+const apiWebServiceURLOfLocals = "https://" + localDomain + "/easyArRecWebservice";
 const apiWebServiceURLOfRemote = "https://www.maaee.com/Excoord_For_Education/webservice";
 var apiWebServiceURL = isDebug ? apiWebServiceURLOfLocals : apiWebServiceURLOfRemote;
 //小蚂蚁mobile地址
