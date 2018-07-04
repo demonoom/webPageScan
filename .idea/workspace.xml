@@ -218,6 +218,17 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ArBookWeb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ArBookWeb" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -406,11 +417,13 @@
       <workItem from="1530619562447" duration="3155000" />
       <workItem from="1530674049678" duration="302000" />
       <workItem from="1530674423279" duration="6496000" />
+      <workItem from="1530619241068" duration="185000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="9976000" />
+    <option name="totallyTimeSpent" value="185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-11" width="1922" height="1025" extended-state="6" />
