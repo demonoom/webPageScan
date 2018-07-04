@@ -10,7 +10,7 @@ const ThreeHelper = function(){
     this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.domElement.setAttribute('class', 'mainCanvas');
-    document.body.appendChild(this.renderer.domElement);
+    // document.body.appendChild(this.renderer.domElement);
 
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight(0xFFFFFF));

@@ -1,20 +1,22 @@
+var isDebug = false;
+var localDomain = "192.168.50.230";   //请求地址
 
-var isDebug = true;
-var localDomain = "192.168.50.15";   //请求地址
-//var localDomain = "192.168.50.15";   //请求地址
 var isDebugLocal = true;
 var localUrl = "192.168.50.15";    //跳转地址http:
 
-// //云校本地测试webService地址
-// var elearningWebserviceURLOfLocal = "http://" + localDomain + ":8888/elearning/elearningControl/";
-// //云校的远程服务器地址
-// var elearningWebserviceURLOfRemote = "http://www.maaee.com/elearning/elearningControl/";
-// var elearningWebserviceURL = isDebug ? elearningWebserviceURLOfLocal : elearningWebserviceURLOfRemote;
+var isDebugAr = false;
+var localDomainAr = "192.168.50.15";   //AR请求地址
+
+//小蚂蚁AR webService地址
+const apiWebServiceURLOfLocalsAr = "https://" + localDomainAr + "/easyArRecWebservice";
+const apiWebServiceURLOfRemoteAr = "https://www.maaee.com/easyArRecWebservice";
+var apiWebServiceURLAr = isDebugAr ? apiWebServiceURLOfLocalsAr : apiWebServiceURLOfRemoteAr;
 
 //小蚂蚁webService地址
-const apiWebServiceURLOfLocals = "https://" + localDomain + "/easyArRecWebservice";
+const apiWebServiceURLOfLocals = "http://" + localDomain + "/Excoord_ApiServer/webservice";
 const apiWebServiceURLOfRemote = "https://www.maaee.com/Excoord_For_Education/webservice";
 var apiWebServiceURL = isDebug ? apiWebServiceURLOfLocals : apiWebServiceURLOfRemote;
+
 //小蚂蚁mobile地址
 const mobileURLOfLocal = "http://" + localUrl + ":8091/#/";
 const mobileURLOfRemote = "http://jiaoxue.maaee.com:8091/#/";
@@ -26,10 +28,24 @@ function WebServiceUtil() {
 
 WebServiceUtil.mobileServiceURL = isDebugLocal ? mobileURLOfLocal : mobileURLOfRemote;
 
-WebServiceUtil.requestLittleAntApi = function (data, listener) {
+WebServiceUtil.requestLittleAntApi = function (flag, data, listener) {
     $.ajax({
         type: "post",
-        url: apiWebServiceURL,
+        url: flag ? apiWebServiceURL : apiWebServiceURLAr,
+        data: {params: data},
+        dataType: "json",
+        success: function (result) {
+            listener.onResponse(result);
+        }, error: function (error) {
+            listener.onError(error);
+        }
+    });
+}
+
+WebServiceUtil.requestLittleAntApiAR = function (data, listener) {
+    $.ajax({
+        type: "post",
+        url: apiWebServiceURLAr,
         data: {params: data},
         dataType: "json",
         success: function (result) {

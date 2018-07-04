@@ -4,7 +4,7 @@
  * @param recognizeUrl 识别服务地址
  * @constructor
  */
-const WebAR = function(interval, recognizeUrl) {
+const WebAR = function (interval, recognizeUrl) {
     var interval = interval;
     //var recognizeUrl = recognizeUrl;
     var recognizeUrl = "http://192.168.50.15:8890/Excoord_EasyArRecServer/webservice"
@@ -29,39 +29,39 @@ const WebAR = function(interval, recognizeUrl) {
      * @param videoDevice
      * @returns {Promise}
      */
-    this.listCamera = function(videoDevice) {
+    this.listCamera = function (videoDevice) {
         videoDeviceElement = videoDevice;
 
         return new Promise((resolve, reject) => {
-                navigator.mediaDevices.enumerateDevices()
+            navigator.mediaDevices.enumerateDevices()
                 .then((devices) => {
-                devices.find((device) => {
-                if (device.kind === 'videoinput') {
-            const option = document.createElement('option');
-            option.text = device.label || 'camera '+ (videoDeviceElement.length + 1).toString();
-            option.value = device.deviceId;
+                    devices.find((device) => {
+                        if (device.kind === 'videoinput') {
+                            const option = document.createElement('option');
+                            option.text = device.label || 'camera ' + (videoDeviceElement.length + 1).toString();
+                            option.value = device.deviceId;
 
-            // 将摄像头id存储在select元素中，方便切换前、后置摄像头
-            videoDeviceElement.appendChild(option);
-        }
-    });
+                            // 将摄像头id存储在select元素中，方便切换前、后置摄像头
+                            videoDeviceElement.appendChild(option);
+                        }
+                    });
 
-        if (videoDeviceElement.length === 0) {
-            reject('没有摄像头');
-        } else {
-            videoDeviceElement.style.display = 'inline-block';
+                    if (videoDeviceElement.length === 0) {
+                        reject('没有摄像头');
+                    } else {
+                        videoDeviceElement.style.display = 'inline-block';
 
-            // 创建canvas，截取摄像头图片时使用
-            canvasElement = document.createElement('canvas');
-            canvasContext = canvasElement.getContext('2d');
+                        // 创建canvas，截取摄像头图片时使用
+                        canvasElement = document.createElement('canvas');
+                        canvasContext = canvasElement.getContext('2d');
 
-            resolve(true);
-        }
-    })
-        .catch((err) => {
-            reject(err);
-    });
-    });
+                        resolve(true);
+                    }
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
     };
 
     /**
@@ -71,7 +71,7 @@ const WebAR = function(interval, recognizeUrl) {
      * @param setting
      * @returns {Promise}
      */
-    this.openCamera = function(video, deviceId, setting) {
+    this.openCamera = function (video, deviceId, setting) {
         videoElement = video;
         if (setting) {
             videoSetting = setting;
@@ -91,30 +91,30 @@ const WebAR = function(interval, recognizeUrl) {
         if (videoElement.srcObject) {
             videoElement.srcObject.getTracks().forEach((track) => {
                 track.stop();
-        });
+            });
         }
 
         return new Promise((resolve, reject) => {
             navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-            videoElement.srcObject = stream;
-        videoElement.style.display = 'block';
-        videoElement.onloadedmetadata = function(){
-            resolve(true);
-        };
-        videoElement.play();
-    })
-        .catch((err) => {
-            reject(err);
-    });
-    });
+                .then((stream) => {
+                    videoElement.srcObject = stream;
+                    videoElement.style.display = 'block';
+                    videoElement.onloadedmetadata = function () {
+                        resolve(true);
+                    };
+                    videoElement.play();
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
     };
 
     /**
      * 截取摄像头图片，返回 base64编码后的图片数据
      * @returns {string}
      */
-    this.captureVideo = function() {
+    this.captureVideo = function () {
         canvasContext.drawImage(videoElement, 0, 0, videoSetting.width, videoSetting.height);
         return canvasElement.toDataURL('image/jpeg', 0.5).split('base64,')[1];
     };
@@ -122,46 +122,37 @@ const WebAR = function(interval, recognizeUrl) {
     /**
      * 识别
      */
-    this.startRecognize = function(callback) {
+    this.startRecognize = function (callback) {
 
         timer = window.setInterval(() => {
-                if (isRecognizing) {
-                    return;
-                }
-        //isRecognizing = true;
-
-        // 从摄像头中抓取一张图片
-        const image = {image: this.captureVideo()};
-        var param=image;
-        console.log(param.image);
-        WebServiceUtil.requestLittleAntApi(JSON.stringify(param), {
-            onResponse: function (result) {
-                if(result.statusCode==0) {
-                    console.log(window.atob(result.meta));
-                }
-            },
-            onError: function (error) {
-                console.log(error)
+            if (isRecognizing) {
+                return;
             }
-        });
-        // 发送到服务器识别
-/*        this.httpPost(recognizeUrl, image)
-            .then((msg) => {
-            this.stopRecognize();
 
-        callback(msg);
-    })
-        .catch((err) => {
-            isRecognizing = false;
-        this.trace(err);
-    });*/
-    }, interval);
+            // 从摄像头中抓取一张图片
+            const image = {image: this.captureVideo()};
+            var param = image;
+            // console.log(param.image);
+            WebServiceUtil.requestLittleAntApi(false, JSON.stringify(param), {
+                onResponse: function (result) {
+                    if (result.statusCode == 0) {
+                        // callback(window.atob(result.meta));
+                        callback(result.targetId);
+                        isRecognizing = false;
+                        window.clearInterval(timer);
+                    }
+                },
+                onError: function (error) {
+                    console.log(error)
+                }
+            });
+        }, interval);
     };
 
     /**
      * 停止识别
      */
-    this.stopRecognize = function() {
+    this.stopRecognize = function () {
         if (timer) {
             window.clearInterval(timer);
             isRecognizing = false;
@@ -174,40 +165,40 @@ const WebAR = function(interval, recognizeUrl) {
      * @param image
      * @returns {Promise}
      */
-    this.httpPost = function(url, image) {
+    this.httpPost = function (url, image) {
         return new Promise((resolve, reject) => {
-                const http = new XMLHttpRequest();
-        http.onload = () => {
-            try {
-                const msg = JSON.parse(http.responseText);
-                if (http.status === 200) {
-                    if (msg.statusCode === 0) {
-                        resolve(msg.result);
+            const http = new XMLHttpRequest();
+            http.onload = () => {
+                try {
+                    const msg = JSON.parse(http.responseText);
+                    if (http.status === 200) {
+                        if (msg.statusCode === 0) {
+                            resolve(msg.result);
+                        } else {
+                            reject(msg);
+                        }
                     } else {
                         reject(msg);
                     }
-                } else {
-                    reject(msg);
+                } catch (err) {
+                    reject(err);
                 }
-            } catch (err) {
+            };
+            http.onerror = (err) => {
                 reject(err);
-            }
-        };
-        http.onerror = (err) => {
-            reject(err);
-        };
+            };
 
-        http.open('POST', url);
-        http.setRequestHeader('Content-Type', 'application/json;Charset=UTF-8');
-        http.send(JSON.stringify(image))
-    });
+            http.open('POST', url);
+            http.setRequestHeader('Content-Type', 'application/json;Charset=UTF-8');
+            http.send(JSON.stringify(image))
+        });
     };
 
     /**
      * 调用输出
      * @param arg
      */
-    this.trace = function(arg) {
+    this.trace = function (arg) {
         if (typeof arg === 'string') {
             debug.innerHTML += arg;
         } else {

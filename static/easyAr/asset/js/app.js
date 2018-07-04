@@ -2,7 +2,13 @@ const webAR = new WebAR(1000, '/webar/recognize');
 
 const threeHelper = new ThreeHelper();
 
-document.querySelector('#openCamera').addEventListener('click', function(){
+var videoIndex = 0;
+
+var videoLength;
+
+var videoArr = [];
+
+document.querySelector('#openCamera').addEventListener('click', function () {
     const videoSetting = {width: 480, height: 360};
 
     const video = document.querySelector('#video');
@@ -19,12 +25,12 @@ document.querySelector('#openCamera').addEventListener('click', function(){
                 if (window.innerWidth < window.innerHeight) {
                     // 竖屏
                     if (videoHeight < window.innerHeight) {
-                        video.setAttribute('height', window.innerHeight.toString() +'px');
+                        video.setAttribute('height', window.innerHeight.toString() + 'px');
                     }
-                }  else {
+                } else {
                     // 横屏
                     if (videoWidth < window.innerWidth) {
-                        video.setAttribute('width', window.innerWidth.toString() +'px');
+                        video.setAttribute('width', window.innerWidth.toString() + 'px');
                     }
                 }
             })
@@ -54,19 +60,115 @@ document.querySelector('#openCamera').addEventListener('click', function(){
 
 document.querySelector('#start').addEventListener('click', () => {
     webAR.startRecognize((msg) => {
-        alert('识别成功');
+        // 识别成功后，msg=地址
+        console.log('地址', msg);
 
-        // 识别成功后，从meta中取出model地址
-         const meta = window.atob(msg.meta);
-         threeHelper.loadObject(meta);
+        var param = {
+            "method": 'getARBookItemByEasyARId',
+            "targetId": msg,
+        };
+        WebServiceUtil.requestLittleAntApi(true, JSON.stringify(param), {
+            onResponse: result => {
+                if (result.msg == '调用成功' || result.success) {
+                    // threeHelper.loadObject('asset/model/trex_v3.fbx');
+                    // return
+                    var arr = result.response.video.split(',');
+                    if (arr.length != 1) {
+                        arr.splice(0, 1)
+                    }
+
+                    buildVideo(arr)
+                }
+            },
+            onError: function (error) {
+
+            }
+        });
+
 
         // 加载本地模型
-        //threeHelper.loadObject('asset/model/trex_v3.fbx');
+        // threeHelper.loadObject('asset/model/trex_v3.fbx');
+        // webAR.trace('加载模型');
 
-        webAR.trace('加载模型');
     });
 }, false);
 
 document.querySelector('#stop').addEventListener('click', () => {
     webAR.stopRecognize();
 }, false);
+
+document.querySelector('#right').addEventListener('click', () => {
+
+    videoIndex += 1;
+
+    document.querySelector('#left').style.display = 'inline-block';
+    if (videoIndex + 1 == videoLength) {
+        document.querySelector('#right').style.display = 'none';
+    }
+
+    var videoSrc = videoArr[videoIndex];//新的视频播放地址
+    document.getElementById("littleV").src = videoSrc;
+    document.getElementById("littleV").play();
+
+}, false)
+
+document.querySelector('#left').addEventListener('click', () => {
+
+    videoIndex -= 1;
+
+    document.querySelector('#right').style.display = 'inline-block';
+    if (videoIndex == 0) {
+        document.querySelector('#left').style.display = 'none';
+    }
+
+    var videoSrc = videoArr[videoIndex];//新的视频播放地址
+    document.getElementById("littleV").src = videoSrc;
+    document.getElementById("littleV").play();
+
+}, false)
+
+document.querySelector('#close').addEventListener('click', () => {
+
+    var video = document.getElementById('littleV');
+    video.pause(); //暂停控制
+    document.querySelector('#videoDiv').style.display = 'none'
+    document.querySelector('.footer').style.display = 'inline-block';
+
+}, false)
+
+/**
+ * 构建video标签
+ * @param data
+ */
+function buildVideo(data) {
+
+    document.querySelector('#videoDiv').style.display = 'block'
+
+    var arr = []
+
+    data.forEach(function (v, i) {
+        var pptURL = v.replace("60.205.111.227", "www.maaee.com");
+        pptURL = pptURL.replace("60.205.86.217", "www.maaee.com");
+        if (pptURL.indexOf("https") == -1 && pptURL.indexOf("http") != -1) {
+            pptURL = pptURL.replace("http", "https");
+        }
+        arr.push(pptURL)
+    });
+
+    videoLength = arr.length;
+
+    videoArr = arr;
+
+    var videoSrc = arr[0];//新的视频播放地址
+    document.getElementById("littleV").src = videoSrc;
+    document.getElementById("littleV").play();
+
+    document.querySelector('#close').style.display = 'inline-block';
+    document.querySelector('.footer').style.display = 'none';
+
+
+    if (videoLength > 1) {
+        document.querySelector('#right').style.display = 'inline-block';
+    }
+
+}

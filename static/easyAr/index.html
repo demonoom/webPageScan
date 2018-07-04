@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <title>WebAR Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    <link rel="stylesheet" href="asset/css/default.css" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="stylesheet" href="asset/css/default.css"/>
+    <link rel="stylesheet" href="asset/css/index.css">
 </head>
 <body>
 
 <video id="video" playsinline=""></video>
 
+<div id="videoDiv">
+    <img id="left" src="./asset/imgs/left.png" alt="">
+    <video id="littleV" autoplay loop>
+        <source id="video_path" src="" type="video/mp4"/>
+    </video>
+    <img id="close" src="./asset/imgs/close.png" alt="">
+    <img id="right" src="./asset/imgs/right.png" alt="">
+</div>
+
 <div class="footer">
-    <input type="button" value="打开摄像头" id="openCamera" />
+    <input type="button" value="打开摄像头" id="openCamera"/>
     <select class="none" id="videoDevice"></select>
-    <input class="none" type="button" value="开始识别" id="start" />
-    <input class="none" type="button" value="停止识别" id="stop" />
+    <input class="none" type="button" value="开始识别" id="start"/>
+    <input class="none" type="button" value="停止识别" id="stop"/>
 </div>
 
 <script type="text/javascript" src="asset/libs/three/three.min.js"></script>
@@ -26,7 +36,7 @@
 <script type="text/javascript" src="asset/libs/three/inflate.min.js"></script>
 <script type="text/javascript" src="asset/libs/three/OrbitControls.js"></script>
 <script type="text/javascript" src="asset/js/app.js"></script>
-<script type="text/javascript" src="../js/webServiceUtil.js"></script>
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/webServiceUtil.js"></script>
 </body>
 </html>
