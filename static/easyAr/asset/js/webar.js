@@ -125,9 +125,10 @@ const WebAR = function(interval, recognizeUrl) {
     this.startRecognize = function(callback) {
 
         timer = window.setInterval(() => {
-                if (isRecognizing) return;
-
-        isRecognizing = true;
+                if (isRecognizing) {
+                    return;
+                }
+        //isRecognizing = true;
 
         // 从摄像头中抓取一张图片
         const image = {image: this.captureVideo()};
@@ -135,13 +136,16 @@ const WebAR = function(interval, recognizeUrl) {
         console.log(param.image);
         WebServiceUtil.requestLittleAntApi(JSON.stringify(param), {
             onResponse: function (result) {
+                if(result.statusCode==0) {
+                    console.log(window.atob(result.meta));
+                }
             },
             onError: function (error) {
                 console.log(error)
             }
         });
         // 发送到服务器识别
-        this.httpPost(recognizeUrl, image)
+/*        this.httpPost(recognizeUrl, image)
             .then((msg) => {
             this.stopRecognize();
 
@@ -150,7 +154,7 @@ const WebAR = function(interval, recognizeUrl) {
         .catch((err) => {
             isRecognizing = false;
         this.trace(err);
-    });
+    });*/
     }, interval);
     };
 
