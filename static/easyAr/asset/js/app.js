@@ -9,6 +9,9 @@ var videoLength;
 var videoArr = [];
 
 document.querySelector('#openCamera').addEventListener('click', function () {
+    document.getElementById('video').play()
+    document.getElementById('littleV').play()
+
     const videoSetting = {width: 480, height: 360};
 
     const video = document.querySelector('#video');
