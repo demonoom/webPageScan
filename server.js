@@ -10,7 +10,7 @@ var path = require('path');
 
 var argv = minimist(process.argv.slice(2), {
     default: {
-        as_uri: 'https://localhost:8443/'
+        as_uri: 'https://localhost:6443/'
     }
 });
 
