@@ -30,8 +30,8 @@
     width: 40px;
     height: 40px;
     position: absolute;
-    left:15px;
-    top:15px;
+    left: 15px;
+    top: 15px;
 }
 
 #littleV {
@@ -70,10 +70,10 @@
     display: none;
 }
 
-#center{
-    background:url("../imgs/i-scanCode.png") no-repeat transparent;;
+#center {
+    background: url("../imgs/i-scanCode.png") no-repeat transparent;;
     background-size: 100%;
-    box-shadow: rgba(0,0,0,0.3) 0 0 0 1900px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1900px;
     width: 200px;
     height: 200px;
     display: inline-block;
@@ -82,25 +82,28 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
 #center2 {
     width: 200px;
     height: 200px;
-    background:url("../imgs/i-scanCode2.gif") no-repeat;
+    background: url("../imgs/i-scanCode2.gif") no-repeat;
     background-size: 100%;
     display: inline-block;
-    box-shadow: rgba(0,0,0,0.3) 0 0 0 1900px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1900px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
-#center2 div.border{
-    background:url("../imgs/i-scanCode.png") no-repeat;
+
+#center2 div.border {
+    background: url("../imgs/i-scanCode.png") no-repeat;
     width: 100%;
     height: 100%;
     background-size: 100%;
     top: 0;
 }
+
 #center div, #center2 div {
     position: absolute;
     bottom: -40px;
@@ -115,13 +118,15 @@
     height: 24px;
     margin: 18px 7px;
 }
-.videoArr_i{
+
+.videoArr_i {
     position: absolute;
     top: 22px;
     font-size: 12px;
     margin-left: 7px;
 }
-.myList{
+
+.myList {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -130,8 +135,10 @@
     height: 100px;
     padding: 0 8px;
     overflow: hidden;
+    display: none;
 }
-.myList li{
+
+.myList li {
     list-style: none;
     background: #21252E;
     width: 56px;
@@ -140,18 +147,21 @@
     display: inline-block;
     position: relative;
 }
-.myList_cont{
+
+.myList_cont {
     width: 100%;
     overflow-x: auto;
     height: 61px;
     overflow-y: hidden;
 }
-.myList_cont_div{
+
+.myList_cont_div {
     width: 100%;
-    height:61px;
+    height: 61px;
     display: flex;
 }
-.teach_title{
+
+.teach_title {
     text-align: center;
     line-height: 30px;
     height: 30px;

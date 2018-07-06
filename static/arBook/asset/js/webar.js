@@ -88,20 +88,20 @@ const WebAR = function (interval, recognizeUrl) {
 
         // 摄像头参数
         // 更多参数请查看 https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints
-        // const constraints = {
-        //     audio: false,
-        //     video: {deviceId: {exact: deviceId}}
-        // };
-
         const constraints = {
-            'video': {
-                'optional': [{
-                    'sourceId': 0 //0为前置摄像头，1为后置
-                }],
-                'deviceId': {exact: deviceId}
-            },
-            'audio': false
-        }
+            audio: false,
+            video: {deviceId: {exact: deviceId}}
+        };
+
+        // const constraints = {
+        //     'video': {
+        //         'optional': [{
+        //             'sourceId': 0 //0为前置摄像头，1为后置
+        //         }],
+        //         'deviceId': {exact: deviceId}
+        //     },
+        //     'audio': false
+        // }
 
         canvasElement.setAttribute('width', videoSetting.width + 'px');
         canvasElement.setAttribute('height', videoSetting.height + 'px');
@@ -116,7 +116,6 @@ const WebAR = function (interval, recognizeUrl) {
         return new Promise((resolve, reject) => {
             navigator.mediaDevices.getUserMedia(constraints)
                 .then((stream) => {
-                    console.log(stream);
                     videoElement.srcObject = stream;
                     videoElement.style.display = 'block';
                     videoElement.onloadedmetadata = function () {
