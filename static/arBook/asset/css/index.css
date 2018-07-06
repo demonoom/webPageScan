@@ -37,3 +37,7 @@
     height: 240px;
     object-fit: fill;
 }
+
+#sharePage {
+    display: none;
+}
