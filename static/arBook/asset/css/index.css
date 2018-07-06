@@ -48,27 +48,57 @@
 
 #start {
     position: absolute;
-    width: 375px;
-    height: 667px;
+    width: 100%;
+    height: 100%;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
     /*opacity: 0.3;*/
 
 }
 
 #stop {
     position: absolute;
-    width: 375px;
-    height: 667px;
+    width: 100%;
+    height: 100%;
     text-align: center;
-    background-color: #cccccc;
-    opacity: 0.3;
     display: none;
 }
 
-#center {
-    width: 100px;
-    height: 100px;
-    background-color: rgba(255, 255, 255, 0);
-
+#center{
+    background:url("../imgs/i-scanCode.png") no-repeat;
+    background-size: 100%;
+    box-shadow: rgba(0,0,0,0.3) 0 0 0 1900px;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+#center2 {
+    width: 200px;
+    height: 200px;
+    background:url("../imgs/i-scanCode2.gif") no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    box-shadow: rgba(0,0,0,0.3) 0 0 0 1900px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+#center2 div.border{
+    background:url("../imgs/i-scanCode.png") no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    top: 0;
+}
+#center div, #center2 div{
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
 }
