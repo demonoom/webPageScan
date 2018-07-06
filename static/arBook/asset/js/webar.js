@@ -4,6 +4,11 @@
  * @param recognizeUrl 识别服务地址
  * @constructor
  */
+
+var deviceArr = []
+
+var timeIndex = 0;
+
 const WebAR = function (interval, recognizeUrl) {
     var interval = interval;
     //var recognizeUrl = recognizeUrl;
@@ -37,6 +42,7 @@ const WebAR = function (interval, recognizeUrl) {
                 .then((devices) => {
                     devices.find((device) => {
                         if (device.kind === 'videoinput') {
+                            deviceArr.push(device.deviceId)
                             const option = document.createElement('option');
                             option.text = device.label || 'camera ' + (videoDeviceElement.length + 1).toString();
                             option.value = device.deviceId;
@@ -73,14 +79,6 @@ const WebAR = function (interval, recognizeUrl) {
      */
     this.openCamera = function (video, deviceId, setting) {
 
-        // if (phoneType.indexOf('Android') > -1) {
-        //     if (phoneType.indexOf('MicroMessenger') > -1) {
-        //         videoElement.srcObject.getTracks().forEach((track) => {
-        //             track.stop();
-        //         });
-        //     }
-        // }
-
         videoElement = video;
         if (setting) {
             videoSetting = setting;
@@ -88,20 +86,26 @@ const WebAR = function (interval, recognizeUrl) {
 
         // 摄像头参数
         // 更多参数请查看 https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints
-        const constraints = {
-            audio: false,
-            video: {deviceId: {exact: deviceId}}
-        };
-
         // const constraints = {
-        //     'video': {
-        //         'optional': [{
-        //             'sourceId': 0 //0为前置摄像头，1为后置
-        //         }],
-        //         'deviceId': {exact: deviceId}
-        //     },
-        //     'audio': false
-        // }
+        //     audio: false,
+        //     video: {deviceId: {exact: deviceId}}
+        // };
+
+        var phoneType = navigator.userAgent;
+        if (phoneType.indexOf('Android') > -1) {
+            var dId = deviceArr[1]
+        } else {
+            var dId = deviceArr[0]
+        }
+
+        const constraints = {
+            'video': {
+                deviceId: {
+                    exact: dId
+                }
+            },
+            'audio': false
+        }
 
         canvasElement.setAttribute('width', videoSetting.width + 'px');
         canvasElement.setAttribute('height', videoSetting.height + 'px');
@@ -142,8 +146,8 @@ const WebAR = function (interval, recognizeUrl) {
      * 识别
      */
     this.startRecognize = function (callback) {
-
         timer = window.setInterval(() => {
+            timeIndex += 1;
             if (isRecognizing) {
                 return;
             }
@@ -165,6 +169,13 @@ const WebAR = function (interval, recognizeUrl) {
                     console.log(error)
                 }
             });
+            if (timeIndex == 10) {
+                timeIndex = 0;
+                isRecognizing = false;
+                window.clearInterval(timer);
+                document.querySelector('#start').style.display = 'inline-block';
+                document.querySelector('#stop').style.display = 'none';
+            }
         }, interval);
     };
 
