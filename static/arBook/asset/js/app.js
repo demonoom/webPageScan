@@ -102,11 +102,11 @@ document.querySelector('#stop').addEventListener('click', () => {
     webAR.stopRecognize();
 }, false);
 
-document.querySelector('#right').addEventListener('click', () => {
+/*document.querySelector('#right').addEventListener('click', () => {
 
     videoIndex += 1;
 
-    document.querySelector('#left').style.display = 'inline-block';
+    // document.querySelector('#left').style.display = 'inline-block';
     if (videoIndex + 1 == videoLength) {
         document.querySelector('#right').style.display = 'none';
     }
@@ -115,9 +115,9 @@ document.querySelector('#right').addEventListener('click', () => {
     document.getElementById("littleV").src = videoSrc;
     document.getElementById("littleV").play();
 
-}, false)
+}, false)*/
 
-document.querySelector('#left').addEventListener('click', () => {
+/*document.querySelector('#left').addEventListener('click', () => {
 
     videoIndex -= 1;
 
@@ -130,7 +130,7 @@ document.querySelector('#left').addEventListener('click', () => {
     document.getElementById("littleV").src = videoSrc;
     document.getElementById("littleV").play();
 
-}, false)
+}, false)*/
 
 document.querySelector('#close').addEventListener('click', () => {
 
@@ -138,6 +138,9 @@ document.querySelector('#close').addEventListener('click', () => {
     video.pause(); //暂停控制
     document.querySelector('#videoDiv').style.display = 'none'
     document.querySelector('.footer').style.display = 'inline-block';
+
+    document.querySelector('#start').style.display = 'inline-block';
+    document.querySelector('#stop').style.display = 'none';
 
 }, false)
 
@@ -175,7 +178,27 @@ function buildVideo(data) {
 
 
     if (videoLength > 1) {
-        document.querySelector('#right').style.display = 'inline-block';
+        // document.querySelector('#right').style.display = 'inline-block';
     }
 
+    buildTags(videoArr)
+
+}
+
+function buildTags(videoArr) {
+    var imgs = '<div class="teach_title">相关教材</div><div class="myList_cont"><div class="myList_cont_div">'
+    for (var i = 0; i < videoArr.length; i++) {
+        imgs += '<li><img onclick="imgOnClick(videoArr[' + i + '])" class="videoArr" src="./asset/imgs/icon-bg.png"  alt="http://60.205.86.217/upload6/2018-02-09/19/805eee4a-b707-49a2-9c75-d5b14ed9227b.jpg?size=100x100"><div class="videoArr_i">教材1</div></li>'
+    }
+
+    imgs += '</div></div>'
+
+    document.getElementById("myList").innerHTML = imgs
+}
+
+function imgOnClick(src) {
+
+    var videoSrc = src;//新的视频播放地址
+    document.getElementById("littleV").src = videoSrc;
+    document.getElementById("littleV").play();
 }
