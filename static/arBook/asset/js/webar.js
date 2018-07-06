@@ -95,7 +95,7 @@ const WebAR = function (interval, recognizeUrl) {
         }
 
         return new Promise((resolve, reject) => {
-            navigator.getUserMedia(constraints)
+            navigator.mediaDevices.getUserMedia(constraints)
                 .then((stream) => {
                     videoElement.srcObject = stream;
                     videoElement.style.display = 'block';
