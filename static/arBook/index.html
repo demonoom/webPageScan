@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WebAR Demo</title>
+    <title>ArBook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" href="asset/css/default.css"/>
@@ -25,8 +25,17 @@
 <div class="footer">
     <input type="button" value="打开摄像头" id="openCamera"/>
     <select class="none" id="videoDevice"></select>
-    <input class="none" type="button" value="开始识别" id="start"/>
-    <input class="none" type="button" value="停止识别" id="stop"/>
+</div>
+
+<div id="start">
+    <div id="center">
+
+    </div>
+    <!--<img src="./asset/imgs/start.png" alt="">-->
+    <span>点击屏幕考试扫描</span>
+</div>
+<div id="stop">
+    <span>停止扫描</span>
 </div>
 
 <div id="sharePage">

@@ -51,9 +51,7 @@ document.querySelector('#openCamera').addEventListener('click', function () {
                 openCamera(video, videoDevice.value, videoSetting);
             };
 
-            document.querySelector('#openCamera').style.display = 'none';
             document.querySelector('#start').style.display = 'inline-block';
-            document.querySelector('#stop').style.display = 'inline-block';
         })
         .catch((err) => {
             console.info(err);
@@ -62,6 +60,8 @@ document.querySelector('#openCamera').addEventListener('click', function () {
 }, false);
 
 document.querySelector('#start').addEventListener('click', () => {
+    document.querySelector('#start').style.display = 'none';
+    document.querySelector('#stop').style.display = 'inline-block';
     webAR.startRecognize((msg) => {
         // 识别成功后，msg=地址
         console.log('地址', msg);
@@ -97,6 +97,8 @@ document.querySelector('#start').addEventListener('click', () => {
 }, false);
 
 document.querySelector('#stop').addEventListener('click', () => {
+    document.querySelector('#start').style.display = 'inline-block';
+    document.querySelector('#stop').style.display = 'none';
     webAR.stopRecognize();
 }, false);
 
@@ -146,6 +148,8 @@ document.querySelector('#close').addEventListener('click', () => {
 function buildVideo(data) {
 
     document.querySelector('#videoDiv').style.display = 'block'
+    document.querySelector('#start').style.display = 'none';
+    document.querySelector('#stop').style.display = 'none';
 
     var arr = []
 
