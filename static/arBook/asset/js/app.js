@@ -143,6 +143,8 @@ document.querySelector('#close').addEventListener('click', () => {
     document.querySelector('#myList').style.display = 'none';
     document.querySelector('#close').style.display = 'none';
 
+    document.querySelector('#littleV').style.display = 'none';
+
 }, false)
 
 /**
@@ -155,6 +157,8 @@ function buildVideo(data) {
     document.querySelector('#start').style.display = 'none';
     document.querySelector('#stop').style.display = 'none';
     document.querySelector('#myList').style.display = 'block';
+
+    document.querySelector('#littleV').style.display = 'inline-block';
 
     var arr = []
 

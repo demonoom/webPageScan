@@ -37,7 +37,8 @@
 #littleV {
     width: 320px;
     height: 240px;
-    object-fit: fill;
+    /*object-fit: fill;*/
+    display: none;
 }
 
 #sharePage {
