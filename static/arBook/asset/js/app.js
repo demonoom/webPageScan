@@ -186,10 +186,12 @@ function buildVideo(data) {
 }
 
 function buildTags(videoArr) {
-    var imgs = ''
+    var imgs = '<div class="teach_title">相关教材</div><div class="myList_cont"><div class="myList_cont_div">'
     for (var i = 0; i < videoArr.length; i++) {
-        imgs += '<li><img onclick="imgOnClick(videoArr[' + i + '])" class="videoArr" src="https://www.maaee.com/upload6/2018-02-09/19/805eee4a-b707-49a2-9c75-d5b14ed9227b.jpg?size=100x100"  alt="http://60.205.86.217/upload6/2018-02-09/19/805eee4a-b707-49a2-9c75-d5b14ed9227b.jpg?size=100x100"></li>'
+        imgs += '<li><img onclick="imgOnClick(videoArr[' + i + '])" class="videoArr" src="./asset/imgs/icon-bg.png"  alt="http://60.205.86.217/upload6/2018-02-09/19/805eee4a-b707-49a2-9c75-d5b14ed9227b.jpg?size=100x100"><div class="videoArr_i">教材1</div></li>'
     }
+
+    imgs += '</div></div>'
 
     document.getElementById("myList").innerHTML = imgs
 }
