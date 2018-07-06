@@ -72,6 +72,15 @@ const WebAR = function (interval, recognizeUrl) {
      * @returns {Promise}
      */
     this.openCamera = function (video, deviceId, setting) {
+
+        // if (phoneType.indexOf('Android') > -1) {
+        //     if (phoneType.indexOf('MicroMessenger') > -1) {
+        //         videoElement.srcObject.getTracks().forEach((track) => {
+        //             track.stop();
+        //         });
+        //     }
+        // }
+
         videoElement = video;
         if (setting) {
             videoSetting = setting;
@@ -79,10 +88,20 @@ const WebAR = function (interval, recognizeUrl) {
 
         // 摄像头参数
         // 更多参数请查看 https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints
+        // const constraints = {
+        //     audio: false,
+        //     video: {deviceId: {exact: deviceId}}
+        // };
+
         const constraints = {
-            audio: false,
-            video: {deviceId: {exact: deviceId}}
-        };
+            'video': {
+                'optional': [{
+                    'sourceId': 0 //0为前置摄像头，1为后置
+                }],
+                'deviceId': {exact: deviceId}
+            },
+            'audio': false
+        }
 
         canvasElement.setAttribute('width', videoSetting.width + 'px');
         canvasElement.setAttribute('height', videoSetting.height + 'px');
@@ -97,6 +116,7 @@ const WebAR = function (interval, recognizeUrl) {
         return new Promise((resolve, reject) => {
             navigator.mediaDevices.getUserMedia(constraints)
                 .then((stream) => {
+                    console.log(stream);
                     videoElement.srcObject = stream;
                     videoElement.style.display = 'block';
                     videoElement.onloadedmetadata = function () {
