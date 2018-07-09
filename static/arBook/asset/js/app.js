@@ -47,11 +47,11 @@ document.querySelector('#openCamera').addEventListener('click', function () {
     webAR.listCamera(videoDevice)
         .then(() => {
             openCamera(video, videoDevice.value, videoSetting);
-            videoDevice.onchange = () => {
-                openCamera(video, videoDevice.value, videoSetting);
-            };
+            // videoDevice.onchange = () => {
+            //     openCamera(video, videoDevice.value, videoSetting);
+            // };
 
-            document.querySelector('#start').style.display = 'inline-block';
+            // document.querySelector('#start').style.display = 'inline-block';
         })
         .catch((err) => {
             console.info(err);
@@ -74,7 +74,6 @@ document.querySelector('#start').addEventListener('click', () => {
             onResponse: result => {
                 if (result.msg == '调用成功' || result.success) {
                     // threeHelper.loadObject('asset/model/trex_v3.fbx');
-                    // return
                     var arr = result.response.video.split(',');
                     if (arr.length != 1) {
                         arr.splice(0, 1)
@@ -137,12 +136,14 @@ document.querySelector('#close').addEventListener('click', () => {
     var video = document.getElementById('littleV');
     video.pause(); //暂停控制
     document.querySelector('#videoDiv').style.display = 'none'
-    document.querySelector('.footer').style.display = 'inline-block';
+    document.querySelector('.footer').style.display = 'none';
 
     document.querySelector('#start').style.display = 'inline-block';
     document.querySelector('#stop').style.display = 'none';
     document.querySelector('#myList').style.display = 'none';
     document.querySelector('#close').style.display = 'none';
+
+    document.querySelector('#littleV').style.display = 'none';
 
 }, false)
 
@@ -156,6 +157,8 @@ function buildVideo(data) {
     document.querySelector('#start').style.display = 'none';
     document.querySelector('#stop').style.display = 'none';
     document.querySelector('#myList').style.display = 'block';
+
+    document.querySelector('#littleV').style.display = 'inline-block';
 
     var arr = []
 
@@ -201,7 +204,6 @@ function buildTags(videoArr) {
 }
 
 function imgOnClick(src) {
-
     var videoSrc = src;//新的视频播放地址
     document.getElementById("littleV").src = videoSrc;
     document.getElementById("littleV").play();

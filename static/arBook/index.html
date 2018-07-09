@@ -14,7 +14,8 @@
 <img id="close" src="./asset/imgs/close.png" alt="">
 <div id="videoDiv">
     <!--<img id="left" src="./asset/imgs/left.png" alt="">-->
-    <video id="littleV" autoplay loop x5-playsinline="true" playsinline="true" webkit-playsinline="true" preload="auto">
+    <video id="littleV" controls autoplay loop x5-playsinline="true" playsinline="true" webkit-playsinline="true"
+           preload="auto">
         <source id="video_path" src="" type="video/mp4"/>
     </video>
 
@@ -22,7 +23,7 @@
     <!--<img id="right" src="./asset/imgs/right.png" alt="">-->
 </div>
 
-<div class="footer">
+<div class="footer" style="display: none">
     <input type="button" value="打开摄像头" id="openCamera"/>
     <select class="none" id="videoDevice"></select>
 </div>
@@ -46,6 +47,10 @@
 
 <div id="myList" class="myList">
 
+</div>
+
+<div className="openBrowser">
+    <img src='./asset/imgs/abc.png' alt=""/>
 </div>
 
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
