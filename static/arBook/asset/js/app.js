@@ -9,6 +9,7 @@ var videoLength;
 var videoArr = [];
 
 document.querySelector('#openCamera').addEventListener('click', function () {
+
     document.getElementById('video').play()
     document.getElementById('littleV').play()
 
@@ -79,7 +80,12 @@ document.querySelector('#start').addEventListener('click', () => {
                         arr.splice(0, 1)
                     }
 
-                    buildVideo(arr)
+                    if (arr[0].substr(arr[0].length - 3, arr[0].length - 1) == 'pdf') {
+                        buildPdf(arr[0])
+                    } else {
+                        buildVideo(arr)
+                    }
+
                 }
             },
             onError: function (error) {
@@ -153,7 +159,7 @@ document.querySelector('#close').addEventListener('click', () => {
  */
 function buildVideo(data) {
 
-    document.querySelector('#videoDiv').style.display = 'block'
+    document.querySelector('#videoDiv').style.display = 'block';
     document.querySelector('#start').style.display = 'none';
     document.querySelector('#stop').style.display = 'none';
     document.querySelector('#myList').style.display = 'block';
@@ -207,4 +213,16 @@ function imgOnClick(src) {
     var videoSrc = src;//新的视频播放地址
     document.getElementById("littleV").src = videoSrc;
     document.getElementById("littleV").play();
+}
+
+function buildPdf(src) {
+
+    var pdfURL = src.replace("60.205.111.227", "www.maaee.com");
+    pdfURL = pdfURL.replace("60.205.86.217", "www.maaee.com");
+    if (pdfURL.indexOf("https") == -1 && pdfURL.indexOf("http") != -1) {
+        pdfURL = pdfURL.replace("http", "https");
+    }
+
+    var src = 'https://www.maaee.com/Excoord_For_Education/js/pdfjs/web/viewer.html?file=' + pdfURL
+    $('#pdf_iframe')[0].src = src
 }
