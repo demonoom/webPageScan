@@ -47,10 +47,11 @@ document.querySelector('#openCamera').addEventListener('click', function () {
     // 列出视频设备
     webAR.listCamera(videoDevice)
         .then(() => {
-            openCamera(video, videoDevice.value, videoSetting);
             // videoDevice.onchange = () => {
             //     openCamera(video, videoDevice.value, videoSetting);
             // };
+            openCamera(video, videoDevice.value, videoSetting);
+            // openCamera(video, videoDevice.value, videoSetting);
 
             // document.querySelector('#start').style.display = 'inline-block';
         })
@@ -58,6 +59,8 @@ document.querySelector('#openCamera').addEventListener('click', function () {
             console.info(err);
             alert('没有可使用的视频设备');
         });
+
+    // openCamera(video, '', videoSetting)
 }, false);
 
 document.querySelector('#start').addEventListener('click', () => {
@@ -153,6 +156,16 @@ document.querySelector('#close').addEventListener('click', () => {
 
 }, false)
 
+document.querySelector('#closePdf').addEventListener('click', () => {
+
+    document.querySelector('#start').style.display = 'inline-block';
+    document.querySelector('#stop').style.display = 'none';
+    document.querySelector('#closePdf').style.display = 'none';
+
+    document.querySelector('#littleV').style.display = 'none';
+    document.querySelector('#pdf_iframe').style.display = 'none';
+}, false)
+
 /**
  * 构建video标签
  * @param data
@@ -217,12 +230,15 @@ function imgOnClick(src) {
 
 function buildPdf(src) {
 
+    document.querySelector('#pdf_iframe').style.display = 'block';
+    document.querySelector('#closePdf').style.display = 'inline-block';
+
     var pdfURL = src.replace("60.205.111.227", "www.maaee.com");
     pdfURL = pdfURL.replace("60.205.86.217", "www.maaee.com");
     if (pdfURL.indexOf("https") == -1 && pdfURL.indexOf("http") != -1) {
         pdfURL = pdfURL.replace("http", "https");
     }
 
-    var src = 'https://www.maaee.com/Excoord_For_Education/js/pdfjs/web/viewer.html?file=' + pdfURL
-    $('#pdf_iframe')[0].src = src
+    var pdf_URL = 'https://www.maaee.com/Excoord_For_Education/js/pdfjs/web/viewer.html?file=' + pdfURL
+    $('#pdf_iframe')[0].src = pdf_URL
 }

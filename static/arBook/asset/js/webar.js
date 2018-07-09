@@ -125,7 +125,10 @@ const WebAR = function (interval, recognizeUrl) {
                     videoElement.onloadedmetadata = function () {
                         resolve(true);
                     };
-                    videoElement.play();
+
+                    videoElement.onloadstart = function () {
+                        videoElement.play();
+                    }
                 })
                 .catch((err) => {
                     reject(err);
