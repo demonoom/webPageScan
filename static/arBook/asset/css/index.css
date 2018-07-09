@@ -192,3 +192,12 @@
 .openBrowser > img {
     width: 200px;
 }
+#pdfIframe{
+    position: absolute;
+    z-index: 2;
+    height: 80%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
