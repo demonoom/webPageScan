@@ -175,6 +175,7 @@
 }
 
 .openBrowser {
+    display: none;
     background-color: #333;
     position: absolute;
     width: 100%;

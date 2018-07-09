@@ -11,7 +11,7 @@ $(function () {
 
         if (phoneType.indexOf('iPhone') > -1 || phoneType.indexOf('iPad') > -1) {
             if (phoneType.indexOf('MicroMessenger') > -1) {
-
+                document.querySelector('.openBrowser').style.display = 'block';
             }
         }
     }
