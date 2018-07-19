@@ -100,7 +100,7 @@
     background: url("../imgs/i-scanCode2.gif") no-repeat;
     background-size: 100%;
     display: inline-block;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1900px;
+    /*box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1900px;*/
     position: absolute;
     left: 50%;
     top: 50%;
