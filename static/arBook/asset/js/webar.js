@@ -107,8 +107,10 @@ const WebAR = function (interval, recognizeUrl) {
             'audio': false
         }
 
-        canvasElement.setAttribute('width', videoSetting.width + 'px');
-        canvasElement.setAttribute('height', videoSetting.height + 'px');
+        // canvasElement.setAttribute('width', videoSetting.width + 'px');
+        // canvasElement.setAttribute('height', videoSetting.height + 'px');
+        canvasElement.setAttribute('width', '270px');
+        canvasElement.setAttribute('height', '270px');
 
         // 如果是切换摄像头，则需要先关闭。
         if (videoElement.srcObject) {
@@ -141,7 +143,7 @@ const WebAR = function (interval, recognizeUrl) {
      * @returns {string}
      */
     this.captureVideo = function () {
-        canvasContext.drawImage(videoElement, 0, 0, 500, 500);
+        canvasContext.drawImage(videoElement, (window.screen.width / 2) - 135, (window.screen.width / 2) - 135, 270, 270, 0, 0, 270, 270);
         // return canvasElement.toDataURL('image/jpeg', 0.5).split('base64,')[1];
         return canvasElement.toDataURL('image/jpeg', 0.5);
     };
