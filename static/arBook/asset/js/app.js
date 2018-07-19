@@ -13,7 +13,7 @@ document.querySelector('#openCamera').addEventListener('click', function () {
     document.getElementById('video').play()
     document.getElementById('littleV').play()
 
-    const videoSetting = {width: 480, height: 360};
+    const videoSetting = {width: window.screen.width, height: window.screen.height};
 
     const video = document.querySelector('#video');
     const videoDevice = document.querySelector('#videoDevice');
@@ -196,6 +196,7 @@ function buildVideo(data) {
 
     var videoSrc = arr[0];//新的视频播放地址
     document.getElementById("littleV").src = videoSrc;
+
     document.getElementById("littleV").play();
 
     document.querySelector('#close').style.display = 'inline-block';

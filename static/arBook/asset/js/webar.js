@@ -141,9 +141,20 @@ const WebAR = function (interval, recognizeUrl) {
      * @returns {string}
      */
     this.captureVideo = function () {
-        canvasContext.drawImage(videoElement, 0, 0, videoSetting.width, videoSetting.height);
-        return canvasElement.toDataURL('image/jpeg', 0.5).split('base64,')[1];
+        canvasContext.drawImage(videoElement, 0, 0, 500, 500);
+        // return canvasElement.toDataURL('image/jpeg', 0.5).split('base64,')[1];
+        return canvasElement.toDataURL('image/jpeg', 0.5);
     };
+
+    //首先需要 吧 base64 流转换成 blob 对象，文件对象都继承它
+    this.getBlobBydataURI = function (dataURI, type) {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        return new Blob([new Uint8Array(array)], {type: type});
+    }
 
     /**
      * 识别
@@ -156,10 +167,10 @@ const WebAR = function (interval, recognizeUrl) {
             }
 
             // 从摄像头中抓取一张图片
-            const image = {image: this.captureVideo()};
-            var param = image;
+            // const image = {image: this.captureVideo()};
+            // var param = image;
             // console.log(param.image);
-            WebServiceUtil.requestLittleAntApi(false, JSON.stringify(param), {
+            /*WebServiceUtil.requestLittleAntApi(false, JSON.stringify(param), {
                 onResponse: function (result) {
                     if (result.statusCode == 0) {
                         // callback(window.atob(result.meta));
@@ -171,7 +182,35 @@ const WebAR = function (interval, recognizeUrl) {
                 onError: function (error) {
                     console.log(error)
                 }
+            });*/
+
+            var $Blob = this.getBlobBydataURI(this.captureVideo(), 'image/jpeg');
+            var formData = new FormData();
+            formData.append("filePath", $Blob, "file_" + Date.parse(new Date()) + ".png");
+
+            $.ajax({
+                type: "POST",
+                url: "https://eschool.maaee.com/Excoord_PastecServer/search",
+                enctype: 'multipart/form-data',
+                data: formData,
+                // 告诉jQuery不要去处理发送的数据
+                processData: false,
+                // 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
+                success: function (responseStr) {
+                    var res = JSON.parse(responseStr).response
+                    if (res.image_ids.length != 0) {
+                        callback(res.image_ids[0]);
+                        isRecognizing = false;
+                        window.clearInterval(timer);
+                    }
+                },
+                error: function (responseStr) {
+                    console.log(responseStr);
+                }
             });
+
+
             if (timeIndex == 10) {
                 timeIndex = 0;
                 isRecognizing = false;
