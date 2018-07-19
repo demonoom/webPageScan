@@ -11,6 +11,7 @@ var timeIndex = 0;
 
 const WebAR = function (interval, recognizeUrl) {
     var interval = interval;
+
     //var recognizeUrl = recognizeUrl;
     var recognizeUrl = "http://192.168.50.15:8890/Excoord_EasyArRecServer/webservice"
     var videoSetting = {width: 320, height: 240};
@@ -213,7 +214,7 @@ const WebAR = function (interval, recognizeUrl) {
             });
 
 
-            if (timeIndex == 10) {
+            if (timeIndex == 4) {
                 timeIndex = 0;
                 isRecognizing = false;
                 window.clearInterval(timer);

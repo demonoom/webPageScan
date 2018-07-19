@@ -1,4 +1,4 @@
-const webAR = new WebAR(1000, '/webar/recognize');
+const webAR = new WebAR(1500, '/webar/recognize');
 
 const threeHelper = new ThreeHelper();
 
