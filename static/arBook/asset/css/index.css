@@ -84,9 +84,9 @@
 #center {
     background: url("../imgs/i-scanCode.png") no-repeat transparent;;
     background-size: 100%;
-    box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1900px;
-    width: 200px;
-    height: 200px;
+    /*box-shadow: rgba(0, 0, 0, 0.3) 0 0 0 1900px;*/
+    width: 270px;
+    height: 270px;
     display: inline-block;
     position: absolute;
     left: 50%;
@@ -95,8 +95,8 @@
 }
 
 #center2 {
-    width: 200px;
-    height: 200px;
+    width: 270px;
+    height: 270px;
     background: url("../imgs/i-scanCode2.gif") no-repeat;
     background-size: 100%;
     display: inline-block;
