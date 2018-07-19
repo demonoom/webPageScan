@@ -58,6 +58,7 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    overflow: hidden;
 }
 
 #openCamera {
@@ -69,6 +70,7 @@
     width: 100%;
     height: 100%;
     text-align: center;
+    overflow: hidden;
     /*opacity: 0.3;*/
 
 }
@@ -79,6 +81,7 @@
     height: 100%;
     text-align: center;
     display: none;
+    overflow: hidden;
 }
 
 #center {
@@ -113,6 +116,7 @@
     height: 100%;
     background-size: 100%;
     top: 0;
+    overflow: hidden;
 }
 
 #center div, #center2 div {
@@ -197,6 +201,7 @@
     text-align: right;
     z-index: 99;
     padding-top: 20px;
+    overflow: hidden;
 }
 
 .openBrowser > img {
